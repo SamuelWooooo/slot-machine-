@@ -1,0 +1,43 @@
+import random
+
+symbols = ['❤️', '⭐️', '🍀', '🔔', '💎']
+balance = 100
+
+def spin():
+    global balance
+    bet = input("Place your bet: ")
+
+    if not bet.isdigit():
+        print("Invalid bet amount!")
+        return
+
+    bet = int(bet)
+
+    if bet > balance:
+        print("Insufficient balance!")
+        return
+
+    balance -= bet
+
+    reel1 = random.choice(symbols)
+    reel2 = random.choice(symbols)
+    reel3 = random.choice(symbols)
+
+    print(reel1, reel2, reel3)
+
+    if reel1 == reel2 == reel3:
+        winnings = bet * 3
+        balance += winnings
+        print("Congratulations! You won", winnings, "tokens.")
+    else:
+        print("Oops! You didn't win this time.")
+
+    print("Current balance:", balance)
+
+while balance > 0:
+    spin_again = input("Do you want to spin? (y/n): ")
+
+    if spin_again.lower() != 'y':
+        break
+
+    spin()
